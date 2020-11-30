@@ -1,0 +1,41 @@
+{% extends "wiki/index.html" %}
+{% load static %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'wiki/map.css' %}"/>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <p class="quote">
+        "The oldest maps available to modern historians are those scratched on the walls of dwarven cities to track the progression of the nearest by fronts of fire. From these, we can glimps the ways in which the shape of the world has withstood the force of the gods; and the ways in which it has folded."<br/>
+        -Gesjiklin, Dwarven Historian
+    </p>
+
+    <div class="textbox">
+        <h2>Map of the North Eastern Ashworld</h2>
+        <div class="mapcontainer">
+            <div id="worldmap" class="map pannable">
+                <image class="map" src="{% static 'wiki/map.png' %}" alt="Map"/>
+                <image id="mapmarker" class="mapsticky" src="{% static 'wiki/flag.png' %}" style="width: 32px; height: 32px;" alt="X"/>
+            </div>
+            <script src="{% static 'wiki/imagePan.js' %}"></script>
+            <div class="blurededge matchcolortoback"></div>
+        </div>
+    </div>
+
+    <script>
+        var map = document.getElementById("worldmap");
+    </script>
+    
+    <!-- Decpricated buttons 
+    <button onclick="pan(map, 0, -50)">North</button>
+    <button onclick="pan(map, 0, 50)">Sourth</button>
+    <button onclick="pan(map, 50, 0)">East</button>
+    <button onclick="pan(map, -50, 0)">West</button>
+    <!-- -->
+
+{% endblock %}

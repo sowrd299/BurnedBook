@@ -1,0 +1,30 @@
+.mapcontainer {
+    position: relative;
+    overflow: hidden;
+    height: 50vh;
+}
+
+.map {
+    position: relative;
+    margin: 0 0; 
+    width: 1500px;
+    object-fit: cover;
+}
+
+.mapsticky {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+.blurededge {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 16px 16px inset;
+    
+    /* because its a frame, assume we don't want to click on it */
+    pointer-events: none;
+}

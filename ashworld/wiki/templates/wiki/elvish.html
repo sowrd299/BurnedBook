@@ -1,0 +1,27 @@
+{% extends "wiki/index.html" %}
+{% load static %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'wiki/elvish.css' %}"/>
+
+{% endblock %}
+
+{% block content %}
+
+<p class="quote">
+"No elves adore their own written language the way the Drossian Elves, the so-called 'camp-fire elves', do."
+</p>
+
+<div class="textbox">
+    <h2>The Elvish Scribe of Au Vriis Mata</h2>
+    <p>The Scribe will gladly transribe (through not translate) anything you please into the Vernal script. Of course, this works best with text already in a vernal language (such as gnomish or any elvish dialect), as the script is attuned to the intricocies of those tongues, and not, say, draconic.
+
+    <div>
+        <span>Text to transcribe:</span> <input id="transcribefrom" type="text"/>
+        <canvas id="outputarea"></canvas>
+        <script src="{% static 'wiki/elvish.js' %}"></script>
+    </div>
+</div>
+
+{% endblock %}

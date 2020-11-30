@@ -1,0 +1,148 @@
+body {
+    padding: 0%;
+    margin: 0%;
+    /* background-image: url('/static/wiki/NW_EmpireMap.png'); */
+    background-color: #202020;
+}
+
+.title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0%;
+    padding: 10px;
+    background: #554508;
+    color: #f0f0ff;
+    text-align: center;
+}
+
+.title, .titlebuffer{
+    height: 6em;
+}
+
+.title img {
+    max-height: 100%;
+}
+
+.title span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.title h2 {
+    margin-bottom: 0%;
+    font-size: 1.25em;
+}
+
+.title h1 {
+    margin-top: 0%;
+    margin-bottom: 8px;
+    font-size: 3em;
+}
+
+.title h1, h2, .sidebar a {
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.title p {
+    position: absolute;
+    text-align: right;
+    right: 2em;
+    top: 0;
+    padding: 0px 8px; 
+}
+
+.content {
+    padding: 10px 20%;
+}
+
+.content .quote {
+    font-size: 2em; /*tangerine is a tinny font*/
+    font-family: 'Tangerine', cursive;
+    /*font-style: italic;*/
+    color: #fffff0;
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.content .textbox {
+    padding: 24px;
+    border-style: inset;
+    border-color: #705530;
+    border-width: 5px;
+    line-height: 1.5;
+}
+
+/* sidebars */
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    padding: 16px;
+    padding-top: inherit;
+    width: 10%;
+    max-width: 10em;
+
+    /* for hiding off screen */
+    transform: translate(-95%, -50%);
+    transition: transform 1s;
+}
+
+.sidebar:hover {
+    transform: translate(0%, -50%);
+}
+
+.sidebar a {
+    display: block;
+    padding: 16px;
+    text-decoration: none;
+    color: #000000;
+    border-bottom-style: solid;
+    border-bottom-color: #101010;
+    border-bottom-width: 3px;
+}
+
+a:hover {
+    font-weight: bold;
+    color: #b03090;
+}
+
+
+/* decorating all secrets */
+.secret {
+    margin-top: 2em;
+    color: #505050;
+    font-style: italic;
+}
+
+/* accomodating draconic syntax */
+span.l {
+    text-decoration: line-through;
+}
+
+
+/* shadowed elements */
+.title, .content .textbox, .sidebar{
+    box-shadow: 8px 8px 4px 4px #00000080;
+}
+
+
+/* parchement colors */
+.sidebar, .content .textbox{
+    background-color: #d0c0a0;
+}
+
+.content .textbox .matchcolortoback {
+    color: #d0c0a0;
+}
+
+.sidebar:hover, .content .textbox:hover{
+    background-color: #e0d0b0;
+}
+
+.content .textbox:hover .matchcolortoback{
+    color: #e0d0b0;
+}

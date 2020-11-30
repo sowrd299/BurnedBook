@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head> 
+
+    <title>Ashworld</title>
+    <link rel="icon" type="image/png" href="{% static 'wiki/Phoenix.png' %}"/>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Tangerine&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'wiki/style.css' %}"/>
+
+    {% block head %} {% endblock %}
+
+</head>
+
+<body>
+
+<div class="title">
+
+    <image src="{% static 'wiki/Phoenix.png' %}" alt=""/>
+    <span><h2>Gesjiklin's Encyclopedia of the</h2><h1>Ashworld</h1></span>
+
+    <p id="datetime">
+        It is presently HOUR SECTION <br/>
+        Summer, 231st Year of Her Reign
+    </p>
+     <script src="{% static 'wiki/clock.js' %}"></script>   
+     
+</div>
+
+<div class="titlebuffer"></div>
+
+<div class="sidebar">
+    <a href="{% url 'index' %}">Introduction</a>
+    <a href="{% url 'map' %}">Map</a>
+    <a>Gods</a>
+    <a>History</a>
+    <a>Fauna</a>
+    <a>Magic</a>
+    <a href="{% url 'elvish' %}">Tongues</a>
+</div>
+
+<div class="content">
+
+    {% block content %}
+    <p class="quote">
+        "All gods walk among us, many were once of us, but none are like us. From them magic flows and landscapes of the world aquiess. We must toil and pray for them to grant us a fraction of that power. This is their world, and we are trapped in it." <br/>
+        -Marven, Heretic of Old Forge
+    </p>
+    <div class="textbox">
+        <h2>Introduction</h2>
+        <p>
+            The Ashworld is a world forever scared by fire and gods. At the dawn of remembered history, there were many peoples of the world all of whom worshipped a pantheon known as "the Cast". Little more of these time is remembered, as this age came to an end when Tian<span class="l">n</span>at and her draconic host attacked and set the world ablaze. All but the dwarves, who aquiessed to their new overlords, and the tritons, who fled beneath the waves, perished. A new reign of draconic power began. But it did not last forever, because after hundreds of years of tyrany the Liberator and his host of devils and angels and men rose up and faught against the dragons and demons and their spawn, and expunged the Burning of the World. A cloud of ash settled over the world, the Phoenix Empire was founded, Tian<span class="l">n</span>at and the Liberator perished, the Draconic host flead north, south and west to the farthest wild lands of the world, and peace came. Hundreds of years later still, strange travelers from no known homeland arrived peacefully in the Empire. They were called the Vernal Courts, worshiped and were ruled over by gods called the Vernal Lords, and pedled many wonderous things. Despite their peaceful approach, however, the Phoenix Emporer, son of the Liberator, feared invasion, and drove these courts to the southern woodlands formerly controlled by some of the last remnants of the Draconic Host. The Liberator-Son died on the battlefield, his eir, the Liberator-Daughter became the Phoenix Empress, and the stage was set for the world as we see it today.
+        </p>
+        <p class="secret">
+            This is a book of many secrets. You, it seems, are granted the privledge of knowing thus. Congratulations. You will find such secrets here, should you wish to see them divulged.
+        </p>
+    </div>
+    {% endblock %}
+
+</div>
+
+</body>
+
+</html>
