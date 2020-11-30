@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index.as_view(), name='index'),
     path('map', views.world_map.as_view(), name='map'),
     path('elvish', views.elvish.as_view(), name='elvish'),
+    path('<str:pagetitle>-info', views.index.as_view(), name='info')
 ]

@@ -8,7 +8,11 @@ class InfoPage(models.Model):
     '''
 
     short_title = models.CharField(max_length = 64, primary_key=True)
-    quote = models.TextField()
-    text = models.TextField()
-    secret_text = models.TextField()
-    next_page = models.ForeignKey(to='self', on_delete=models.SET_NULL, null=True)
+
+    def title(self):
+        return self.short_title
+
+    quote = models.TextField(blank = True)
+    text = models.TextField(blank = True)
+    secret_text = models.TextField(blank = True)
+    next_page = models.ForeignKey(to='self', on_delete=models.SET_NULL, null=True, blank=True)
