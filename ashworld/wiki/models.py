@@ -17,5 +17,20 @@ class InfoPage(models.Model):
 
     quote = models.TextField(blank = True)
     text = models.TextField(blank = True)
-    secret_text = models.TextField(blank = True)
     next_page = models.ForeignKey(to='self', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.short_title
+
+
+
+class InfoSecret(models.Model):
+    '''
+    A class representing a secret piece of information on a given page
+    '''
+
+    page = models.ForeignKey(to=InfoPage, on_delete=models.SET_DEFAULT, default=InfoPage.objects.get(pk = 'Introduction').pk)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.page.title() + " (" + (self.text[:10] + "..." if len(self.text) > 10 else self.text) + ")"

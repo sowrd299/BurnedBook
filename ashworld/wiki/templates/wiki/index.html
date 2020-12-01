@@ -26,7 +26,18 @@
     <image src="{% static 'wiki/Phoenix.png' %}" alt=""/>
     <span><h2>Gesjiklin's Encyclopedia of the</h2><h1>Ashworld</h1></span>
 
-    <p id="datetime">
+    <p id="secrets" class="left">
+        <a href="{% url 'togglesecrets' %}?return={{request.path}}">
+            <img id={% if show_secrets %}"main"{% else %}"alt"{% endif %} src="{% static 'wiki/openEye.png' %}" alt="" height="16"/>
+            <img id={% if show_secrets %}"alt"{% else %}"main"{% endif %} src="{% static 'wiki/closedEye.png' %}" alt="" height="16"/>
+            {% if show_secrets %}
+                You are viewing all secrets.
+            {% else %}
+                All secrets are hidden from you.
+            {% endif %}
+        </a>
+    </p>
+    <p id="datetime" class="right">
         It is presently HOUR SECTION <br/>
         Summer, 231st Year of Her Reign
     </p>
@@ -57,9 +68,14 @@
         <p>
             {{ info.text | safe }}
         </p>
-        <p class="secret">
-            {{ info.secret_text | safe }}
-        </p>
+        {% if show_secrets %}
+            <!--- Displaying secrets -->
+            {% for secret in info.infosecret_set.all %}
+                <p class="secret">
+                    {{ secret.text | safe }}
+                </p>
+            {% endfor %}
+        {% endif %}
     </div>
 
     {% if info.prev_page %}

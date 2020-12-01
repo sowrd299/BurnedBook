@@ -13,8 +13,11 @@ body {
     margin: 0%;
     padding: 10px;
     background: #554508;
-    color: #f0f0ff;
     text-align: center;
+}
+
+.title, .title a {
+    color: #f0f0ff;
 }
 
 .title, .titlebuffer{
@@ -47,13 +50,36 @@ body {
     font-family: 'Cinzel Decorative', cursive;
 }
 
+
+/* other content on the title bar */
+
 .title p {
     position: absolute;
-    text-align: right;
-    right: 2em;
     top: 0;
     padding: 0px 8px; 
 }
+
+.title p.right {
+    text-align: right;
+    right: 2em;
+}
+
+.title p.left {
+    text-align: left;
+    left: 0;
+}
+
+.title p img#main, .title p:hover img#alt {
+    display: inline;
+}
+
+.title p img#alt, .title p:hover img#main {
+    display: none;
+}
+
+
+
+/* CONTENT */
 
 .content {
     padding: 10px 20%;
@@ -99,8 +125,6 @@ body {
 .sidebar a {
     display: block;
     padding: 16px;
-    text-decoration: none;
-    color: #000000;
     border-bottom-style: solid;
     border-bottom-color: #101010;
     border-bottom-width: 3px;
@@ -109,6 +133,12 @@ body {
 .sidebar a:hover {
     font-weight: bold;
     color: #b03090;
+}
+
+/* undecorating all links */
+a {
+    text-decoration: none;
+    color: #000000;
 }
 
 

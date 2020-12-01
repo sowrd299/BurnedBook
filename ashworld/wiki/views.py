@@ -1,26 +1,50 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import InfoPage
+
+
+def base_context(request):
+    '''
+    Returns a basic context set up with variables useful in most pages
+    '''
+
+    context = {}
+
+    # set the secrecy level
+    context['show_secrets'] = request.session.get('show_secrets', False)
+
+    return context
+
 
 # Create your views here.
 
-class index(TemplateView):
+def index(request, **kwargs):
 
     template_name = "wiki/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    context = base_context(request)
 
-        short_title = self.kwargs['pagetitle'] if ('pagetitle' in self.kwargs) else 'Introduction'
+    # find the info page
+    short_title = kwargs['pagetitle'] if ('pagetitle' in kwargs) else 'Introduction'
+    info = get_object_or_404(InfoPage, short_title=short_title) 
+    context['info'] = info
 
-        info = get_object_or_404(InfoPage, short_title=short_title) 
-        context['info'] = info
-        return context
+    # the actual return
+    return render(request, template_name, context)
 
 
-class world_map(TemplateView):
+def world_map(request):
     template_name = "wiki/map.html"
+    return render(request, template_name, base_context(request))
 
-class elvish(TemplateView):
+def elvish(request):
     template_name = "wiki/elvish.html"
+    return render(request, template_name, base_context(request))
+
+
+def toggle_secrets(request):
+    '''
+    Toggles a user's status for viewing secrets
+    '''
+    request.session['show_secrets'] = not request.session.get('show_secrets', False)
+    return redirect(request.GET.get('return'))
