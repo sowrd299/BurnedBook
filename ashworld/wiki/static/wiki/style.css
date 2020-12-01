@@ -86,12 +86,21 @@ body {
     color: #fffff0;
 }
 
-.content .quote {
-    font-size: 2em; /*tangerine is a tinny font*/
+.content .quote, .content .quoteauthor {
     font-family: 'Tangerine', cursive;
     /*font-style: italic;*/
     padding-left: 12%;
     padding-right: 12%;
+}
+
+.content .quote {
+    font-size: 2em; /*tangerine is a tinny font*/
+}
+
+.content .quoteauthor {
+    font-size: 1.75em;
+    text-align: right;
+    margin-top: -24px;
 }
 
 .content .textbox {
