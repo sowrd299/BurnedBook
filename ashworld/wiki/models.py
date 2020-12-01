@@ -12,6 +12,9 @@ class InfoPage(models.Model):
     def title(self):
         return self.short_title
 
+    def prev_page(self):
+        return InfoPage.objects.get(next_page = self)
+
     quote = models.TextField(blank = True)
     text = models.TextField(blank = True)
     secret_text = models.TextField(blank = True)

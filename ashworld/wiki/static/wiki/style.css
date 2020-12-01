@@ -57,18 +57,19 @@ body {
 
 .content {
     padding: 10px 20%;
+    color: #fffff0;
 }
 
 .content .quote {
     font-size: 2em; /*tangerine is a tinny font*/
     font-family: 'Tangerine', cursive;
     /*font-style: italic;*/
-    color: #fffff0;
     padding-left: 12%;
     padding-right: 12%;
 }
 
 .content .textbox {
+    color: #000000;
     padding: 24px;
     border-style: inset;
     border-color: #705530;
@@ -105,7 +106,7 @@ body {
     border-bottom-width: 3px;
 }
 
-a:hover {
+.sidebar a:hover {
     font-weight: bold;
     color: #b03090;
 }
