@@ -4,3 +4,10 @@
     margin-top: 24px;
     background: #ffffff80;
 }
+
+#textoutput {
+    font-family: 'Tangerine', cursive;
+    font-size: 2em;
+    min-height: 1.5em;
+    margin: 8px 64px;
+}

@@ -1,6 +1,6 @@
 let tracking = 35;
 let transcriptions = new Map();
-let maxTranscriptionLen = 2; // TODO: Don't hard code this
+let maxTranscriptionLen = 3; // TODO: Don't hard code this
 
 var canvas = document.getElementById("outputarea");
 var ctx = canvas.getContext("2d");
@@ -18,12 +18,14 @@ ctx.transform(1.500000, 0.000000, 0.000000, 1.500000, tracking/2, -87.000000);
  This is called to write from text instead of letter functions
  It takes in a string, and displays the corresponding elvish
  Also handles displaying multiple words at once
+ Returns a string interpretation of its partsing
  */
 function transcribe(text) {
 
 	text = text.toLowerCase();
 	var words = [];
 	var letters = [];
+	var textOutput = "";
 
 	for(var i = 0; i < text.length;) {
 		var noMatchFound = true;
@@ -33,6 +35,9 @@ function transcribe(text) {
 			var sub = text.substring(i, i+j);
 			if(transcriptions.has(sub)){
 				letters.push(transcriptions.get(sub));
+				textOutput +=
+						( textOutput.length > 0 && textOutput[textOutput.length-1] != " " ? "·" : "")
+						+ sub;
 				noMatchFound = false;
 				i += sub.length;
 				break;
@@ -45,6 +50,7 @@ function transcribe(text) {
 			// handle advancing to the next word
 			if(text[i] == ' ') {
 				words.push(letters);
+				textOutput += ' '
 				letters = []
 			}
 
@@ -65,6 +71,8 @@ function transcribe(text) {
 	});
 
 	ctx.transform(1, 0, 0, 1, -offset, 0);
+
+	return textOutput;
 	
 }
 
@@ -74,23 +82,41 @@ function transcribe(text) {
 function write(word, tracking) {
 
 	let stack = [];
+	let diacritics = [];
 	var first = true;
 
 	beginWord();
 
+	// first stroke
 	word.forEach(function(writeLetter){
 		stack.push(writeLetter(first));
 		ctx.transform(1, 0, 0, 1, tracking, 0);
 		first = false;
 	})
 
+	// second stroke
 	while(stack.length > 0){
 		ctx.transform(1, 0, 0, 1, -tracking, 0);
 		var endLetter = stack.pop();
-		endLetter();
+		var diacritic = endLetter();
+		if(diacritic) {
+			diacritics.push({
+				pos : stack.length,
+				diacritic : diacritic
+			});
+		}
 	}
 
 	endWord();
+
+	// diacritics
+	diacritics.forEach(function(e){
+		ctx.transform(1,0,0,1, tracking * e.pos, 0);
+		beginWord();
+		e.diacritic();	
+		endWord();
+		ctx.transform(1,0,0,1, -tracking * e.pos, 0);
+	});
 
 }
 	
@@ -116,8 +142,10 @@ function endWord() {
 
 /*
 Returns a function that manages writing the given letter with the given specs
+That function returns a function that finishes writing the letter
+That secodn function returns any diacritic function passed in
  */
-function makeWriteLetter ( offsetX, offsetY, start, write, end ) {
+function makeWriteLetter ( offsetX, offsetY, start, write, end, diacritic = () => null ) {
 	return function(first) {
 		ctx.save();
 		ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, offsetX, offsetY);
@@ -129,6 +157,9 @@ function makeWriteLetter ( offsetX, offsetY, start, write, end ) {
 			ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, offsetX, offsetY);
 			end();
 			ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, -offsetX, -offsetY);
+
+			return diacritic;
+
 		}
 
 	}
@@ -141,9 +172,11 @@ function makeWriteLetter ( offsetX, offsetY, start, write, end ) {
 // USER INPUT
 // set up the input to be transcribed from
 let from = document.getElementById("transcribefrom");
+let textOutput = document.getElementById("textoutput");
 from.oninput = function(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	transcribe(from.value);
+	var outputText = transcribe(from.value);
+	textOutput.innerText = outputText;
 }
 
 
@@ -152,6 +185,28 @@ from.oninput = function(){
 
 
 // LETTER FUNCTIONS
+
+
+// diacritics
+function writeDiacriticR() {
+	ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, -253.411130, -139.834240);
+	ctx.moveTo(265.979910, 235.692330);
+	ctx.bezierCurveTo(268.225950, 232.390900, 265.902210, 228.782160, 270.725250, 227.026920);
+	ctx.lineTo(270.518910, 230.946990);
+	ctx.bezierCurveTo(268.860740, 233.142650, 269.264800, 234.581160, 265.979910, 235.692330);
+	ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, 253.411130, 139.834240);
+}
+
+function writeDiacriticC() {
+	ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, -89.483230, -149.330760);
+	ctx.moveTo(105.347610, 236.587140);
+	ctx.bezierCurveTo(99.487694, 242.069940, 104.086010, 246.914960, 108.677880, 247.076780);
+	ctx.bezierCurveTo(113.318550, 247.240320, 117.575200, 243.663540, 115.629130, 238.129020);
+	ctx.bezierCurveTo(115.341750, 237.311730, 113.446480, 237.171900, 112.739190, 236.330760);
+	ctx.bezierCurveTo(113.984580, 241.002410, 111.217960, 243.559500, 108.993950, 243.246250);
+	ctx.bezierCurveTo(107.013280, 242.967290, 104.082750, 240.884860, 105.347610, 236.587140);
+	ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, 89.483230, 149.330760);
+}
 
 // vowels
 
@@ -389,9 +444,9 @@ let writeSu = makeWriteLetter(
 	-91.054290, -102.811250,
 	function() {
 		ctx.moveTo(91.452614, 197.279220);
-		ctx.bezierCurveTo(101.350350, 200.883370, 111.514960, 190.899130, 113.339560, 197.330590);
 	},
 	function() {
+		ctx.bezierCurveTo(101.350350, 200.883370, 111.514960, 190.899130, 113.339560, 197.330590);
 		ctx.bezierCurveTo(114.844110, 202.633880, 103.506200, 212.187020, 103.506200, 212.187020);
 		ctx.bezierCurveTo(119.965840, 211.290080, 117.876230, 205.422440, 125.461290, 209.134590);
 	},
@@ -428,6 +483,8 @@ let writeTu = makeWriteLetter(
 )
 transcriptions.set("tu", writeTu);
 
+
+
 // front vowels and extra consonanants (the rogues)
 	    
 let writeVe = makeWriteLetter (
@@ -453,67 +510,46 @@ transcriptions.set("ve", writeVe);
 // TODO: Does not work
 let writeCsu = makeWriteLetter(
 	-89.483230, -149.330760,
-	() => ctx.moveTo(105.347610, 236.587140),
 	function() {
-		ctx.bezierCurveTo(99.487694, 242.069940, 104.086010, 246.914960, 108.677880, 247.076780);
-		ctx.bezierCurveTo(113.318550, 247.240320, 117.575200, 243.663540, 115.629130, 238.129020);
-		ctx.bezierCurveTo(115.341750, 237.311730, 113.446480, 237.171900, 112.739190, 236.330760);
-		ctx.bezierCurveTo(113.984580, 241.002410, 111.217960, 243.559500, 108.993950, 243.246250);
-		ctx.bezierCurveTo(107.013280, 242.967290, 104.082750, 240.884860, 105.347610, 236.587140);
+		ctx.moveTo(89.881554, 256.679800);
 	},
 	function () {
-		ctx.moveTo(89.881554, 256.679800);
 		ctx.bezierCurveTo(99.779288, 260.283950, 109.943900, 250.299710, 111.768500, 256.731170);
 		ctx.bezierCurveTo(113.273050, 262.034460, 101.935140, 271.587600, 101.935140, 271.587600);
 		ctx.bezierCurveTo(118.394780, 270.690660, 116.305170, 264.823020, 123.890230, 268.535170);
-		ctx.lineTo(124.263470, 264.707330);
+	},
+	function () {
 		ctx.bezierCurveTo(116.656070, 262.187840, 116.592860, 267.465270, 108.734550, 267.923550);
 		ctx.bezierCurveTo(110.406700, 268.342670, 118.965330, 257.218890, 116.415930, 251.867030);
 		ctx.bezierCurveTo(112.873220, 244.429960, 97.586078, 254.778250, 89.881554, 256.679800);
-	}
+	},
+	writeDiacriticC
 )
+transcriptions.set("csu", writeCsu);
 
 // TODO: How will I make this work?
-function writeVri() {
-
-	ctx.save();
-	ctx.transform(1.000000, 0.000000, 0.000000, 1.000000, -253.411130, -139.834240);
-
-	ctx.beginPath();
-	ctx.lineJoin = 'miter';
-	ctx.strokeStyle = 'rgb(0, 0, 0)';
-	ctx.lineCap = 'butt';
-	ctx.lineWidth = 0.070004;
-	ctx.fillStyle = 'rgb(0, 0, 0)';
-	ctx.moveTo(253.904880, 251.166850);
-	ctx.bezierCurveTo(258.649020, 253.140710, 260.527880, 241.544830, 263.653670, 236.484200);
-	ctx.bezierCurveTo(263.653670, 236.484200, 260.019600, 259.629380, 267.245350, 259.716250);
-	ctx.bezierCurveTo(274.848050, 259.807750, 271.521140, 235.369070, 271.521140, 235.369070);
-	ctx.bezierCurveTo(273.616970, 240.257240, 277.138290, 250.527740, 279.673110, 251.599540);
-	ctx.lineTo(279.644310, 255.874250);
-	ctx.bezierCurveTo(276.207580, 252.414400, 276.351870, 251.179450, 273.231420, 242.617460);
-	ctx.bezierCurveTo(273.231420, 242.617460, 275.353100, 267.715580, 267.416350, 267.708070);
-	ctx.bezierCurveTo(260.129470, 267.701070, 262.114350, 244.661880, 262.114350, 244.661880);
-	ctx.bezierCurveTo(259.263830, 256.718640, 256.413310, 253.992150, 253.562770, 255.999120);
-	ctx.fill();
-    ctx.stroke();
-
-	ctx.beginPath();
-	ctx.lineJoin = 'miter';
-	ctx.strokeStyle = 'rgb(0, 0, 0)';
-	ctx.lineCap = 'butt';
-	ctx.lineWidth = 0.070004;
-	ctx.fillStyle = 'rgb(0, 0, 0)';
-	ctx.moveTo(265.979910, 235.692330);
-	ctx.bezierCurveTo(268.225950, 232.390900, 265.902210, 228.782160, 270.725250, 227.026920);
-	ctx.lineTo(270.518910, 230.946990);
-	ctx.bezierCurveTo(268.860740, 233.142650, 269.264800, 234.581160, 265.979910, 235.692330);
-	ctx.fill();
-	ctx.stroke();
-	ctx.restore();
-	ctx.restore();
-
-	console.log("Wrote: Vri")
-}
+let writeVri = makeWriteLetter(
+	-253.411130, -139.834240,
+	function() {
+		ctx.moveTo(253.904880, 251.166850);
+		ctx.bezierCurveTo(258.649020, 253.140710, 260.527880, 241.544830, 263.653670, 236.484200);
+	},
+	function() {
+		ctx.bezierCurveTo(263.653670, 236.484200, 260.019600, 259.629380, 267.245350, 259.716250);
+		ctx.bezierCurveTo(274.848050, 259.807750, 271.521140, 235.369070, 271.521140, 235.369070);
+		ctx.bezierCurveTo(273.616970, 240.257240, 277.138290, 250.527740, 279.673110, 251.599540);
+	},
+	function() {
+		ctx.bezierCurveTo(276.207580, 252.414400, 276.351870, 251.179450, 273.231420, 242.617460);
+		ctx.bezierCurveTo(273.231420, 242.617460, 275.353100, 267.715580, 267.416350, 267.708070);
+		ctx.bezierCurveTo(260.129470, 267.701070, 262.114350, 244.661880, 262.114350, 244.661880);
+		ctx.bezierCurveTo(259.263830, 256.718640, 256.413310, 253.992150, 253.562770, 255.999120);
+	},
+	writeDiacriticR
+)
+transcriptions.set("vri", writeVri);
+transcriptions.set("vre", writeVri);
+transcriptions.set("fri", writeVri);
+transcriptions.set("fre", writeVri);
 
 // / LETTER FUNCTIONS
