@@ -64,7 +64,14 @@
         {{ info.quote | safe}}
     </p>
     <div class="textbox">
-        <h2>{{ info.title | safe }}</h2>
+        <h2>
+            {% if info.is_secret and not show_secrets %}
+                <spawn class="secret">There are only secrets here.</span>
+            {% else %}
+                {{ info.title | safe }}
+                <!-- Dispalying page -->
+            {% endif %}
+        </h2>
         <p>
             {{ info.text | safe }}
         </p>
@@ -76,6 +83,7 @@
                 </p>
             {% endfor %}
         {% endif %}
+        <a class="edit" href="{% url 'admin:wiki_infopage_change' info.pk %}">Edit</a>
     </div>
 
     {% if info.prev_page %}

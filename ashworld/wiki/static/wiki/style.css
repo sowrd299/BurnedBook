@@ -121,6 +121,7 @@ body {
     padding-top: inherit;
     width: 10%;
     max-width: 10em;
+    overflow: hidden;
 
     /* for hiding off screen */
     transform: translate(-95%, -50%);
@@ -148,14 +149,6 @@ body {
 a {
     text-decoration: none;
     color: #000000;
-}
-
-
-/* decorating all secrets */
-.secret {
-    margin-top: 2em;
-    color: #505050;
-    font-style: italic;
 }
 
 /* accomodating draconic syntax */
