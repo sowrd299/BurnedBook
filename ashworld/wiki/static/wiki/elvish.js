@@ -260,9 +260,9 @@ let writeU = makeWriteLetter (
 	0, 0, 
 	function() {
 		ctx.moveTo(0.189842, 88.385520);
-		ctx.bezierCurveTo(0.189842, 88.385520, 9.848792, 86.622210, 13.811852, 88.911060);
 	},
 	function() {
+		ctx.bezierCurveTo(0.189842, 88.385520, 9.848792, 86.622210, 13.811852, 88.911060);
 		ctx.bezierCurveTo(18.511152, 91.625120, 22.853282, 97.274130, 22.750142, 102.779110);
 		ctx.bezierCurveTo(22.655342, 107.840650, 19.069592, 114.630850, 14.059982, 115.210790);
 		ctx.bezierCurveTo(9.525402, 115.735720, 4.183112, 110.620710, 3.849052, 106.050600);
@@ -416,7 +416,29 @@ function writeMo(first) {
 transcriptions.set("mo", writeMo);
 transcriptions.set("ma", writeMo);
 
+function startWriteDo() {
+	//ctx.moveTo(31.978899, 11.291632);
+}
+function endWriteDo() {
+	ctx.bezierCurveTo(33.210212, 14.523295, 15.911469, 10.809393, 10.488901, 20.136932);
+	ctx.bezierCurveTo(8.853819, 22.949490, 15.017104, 26.275503, 17.516057, 24.982332);
+	ctx.bezierCurveTo(24.331238, 18.655671, 22.357432, 8.421366, 15.524861, 6.295141);
+	ctx.bezierCurveTo(10.399823, 4.700284, 6.938047, 14.403862, 0.204304, 14.614113);
+}
+function mainWriteDo() {
+	ctx.bezierCurveTo(5.016447, 12.269282, 11.626116, -2.482411, 17.750317, 1.038442);
+	ctx.bezierCurveTo(23.874518, 4.559294, 28.443857, 23.404718, 18.989139, 26.639962);
+	ctx.bezierCurveTo(14.567161, 28.153088, 6.838637, 24.501513, 7.330585, 19.214993);
+	ctx.bezierCurveTo(8.283091, 8.979271, 31.978893, 11.291632, 31.978893, 11.291632);
+}
 
+let writeDo = makeWriteLetter( 0, 100, startWriteDo, mainWriteDo, endWriteDo);
+transcriptions.set("do", writeDo);
+transcriptions.set("da", writeDo);
+
+let writeDro = makeWriteLetter( 0, 100, startWriteDo, mainWriteDo, endWriteDo, writeDiacriticR);
+transcriptions.set("dro", writeDro);
+transcriptions.set("dra", writeDro);
 
 // _u
 	
