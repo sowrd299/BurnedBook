@@ -164,7 +164,7 @@ span.l {
 
 
 /* parchement colors */
-.sidebar, .content .textbox{
+.sidebar, .content .textbox, .content .textbox .matchbackground {
     background-color: #d0c0a0;
 }
 
@@ -172,7 +172,7 @@ span.l {
     color: #d0c0a0;
 }
 
-.sidebar:hover, .content .textbox:hover{
+.sidebar:hover, .content .textbox:hover, .content .textbox:hover .matchbackground {
     background-color: #e0d0b0;
 }
 

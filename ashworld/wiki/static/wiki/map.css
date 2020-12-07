@@ -28,3 +28,21 @@
     /* because its a frame, assume we don't want to click on it */
     pointer-events: none;
 }
+
+.note {
+    color: #706060;
+    text-align: right;
+}
+
+.maplocation:hover {
+    font-weight: bold;
+    color: #b03090;
+}
+
+.mapcity {
+    font-size: 1.2em;
+}
+
+.mapcity image {
+    height: 1.2em;
+}

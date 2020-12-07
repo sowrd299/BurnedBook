@@ -1,43 +1,44 @@
-{% extends "wiki/index.html" %}
 {% load static %}
 
-{% block head %}
+<link rel="stylesheet" href="{% static 'wiki/map.css' %}"/>
 
-    <link rel="stylesheet" href="{% static 'wiki/map.css' %}"/>
+<!-- HTML to display an interacive map of the world-->
+<!-- should only ever be included inside of a content div-->
 
-{% endblock %}
+<div class="mapcontainer">
+    <div id="worldmap" class="map pannable">
+        <image class="map" src="{% static 'wiki/map.png' %}" alt="Map"/>
+        <image id="mapmarker" class="mapsticky" src="{% static 'wiki/flag.png' %}" style="width: 32px; height: 32px;" alt="X"/>
 
-{% block content %}
+        {% for location in locations %}
+            <a class="maplocation mapsticky map{{location.loc_type}} matchbackground" href="{% url 'info' location.page.pk %}"
+                style="top: {{ location.y }}px; left: {{ location.x }}px ">
+                <image src="
+                    {% if location.loc_type == 'city' %}
+                        {% static 'wiki/city.png' %}
+                    {% else %}
+                        {% static 'wiki/village.png' %}
+                    {% endif %}
+                "/>
+                {{ location.title }}
+                <br/>
+                {% if location.note %}
+                    <span class="note">({{ location.note }})</span>
+                {% endif %}
+            </a>
+        {% endfor %}
 
-
-    <p class="quote">
-        "The oldest maps available to modern historians are those scratched on the walls of dwarven cities to track the progression of the nearest by fronts of fire. From these, we can glimps the ways in which the shape of the world has withstood the force of the gods; and the ways in which it has folded."
-    </p>
-    <p class="quoteauthor">
-        -Gesjiklin, Dwarven Historian
-    </p>
-
-    <div class="textbox">
-        <h2>Map of the North Eastern Ashworld</h2>
-        <div class="mapcontainer">
-            <div id="worldmap" class="map pannable">
-                <image class="map" src="{% static 'wiki/map.png' %}" alt="Map"/>
-                <image id="mapmarker" class="mapsticky" src="{% static 'wiki/flag.png' %}" style="width: 32px; height: 32px;" alt="X"/>
-            </div>
-            <script src="{% static 'wiki/imagePan.js' %}"></script>
-            <div class="blurededge matchcolortoback"></div>
-        </div>
     </div>
+    <div class="blurededge matchcolortoback"></div>
 
+</div>
+<p class="note">The flag is at <span id="markerx">100</span> East, <span id="markery">100</span> South</p>
+
+<script src="{% static 'wiki/imagePan.js' %}"></script>
+<script src="{% static 'wiki/map.js' %}"></script>
+
+{% if info and info.map_location %}
     <script>
-        var map = document.getElementById("worldmap");
+        panTo({{ info.map_location.x }}, {{ info.map_location.y }});
     </script>
-    
-    <!-- Decpricated buttons 
-    <button onclick="pan(map, 0, -50)">North</button>
-    <button onclick="pan(map, 0, 50)">Sourth</button>
-    <button onclick="pan(map, 50, 0)">East</button>
-    <button onclick="pan(map, -50, 0)">West</button>
-    <!-- -->
-
-{% endblock %}
+{% endif %}

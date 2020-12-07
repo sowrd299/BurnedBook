@@ -33,24 +33,8 @@ function onMouseMove(event) {
         startX = event.screenX;
         startY = event.screenY;
 
-        // enforce bounds
-        var rightBound = target.parentNode.clientWidth - target.clientWidth;
-        if(marginX <= rightBound){
-            marginX = rightBound;
-        }
-        if(marginX > 0){
-            marginX = 0;
-        }
-        var bottomBound = target.parentNode.clientHeight - target.clientHeight;
-        if(marginY <= bottomBound){
-            marginY = bottomBound;
-        }
-        if(marginY > 0){
-            marginY = 0;
-        }
-
         // actually move
-        target.style.margin = marginY + "px 0px 0px " + marginX + "px";
+        _panTo(marginX, marginY);
     }
 
 }
@@ -64,6 +48,43 @@ function onMouseUp(event) {
     }
 }
 
+
+/*
+Executes a pan
+ */
+function _panTo(x, y) {
+
+    console.log("Panning!");
+
+    marginX = x;
+    marginY = y;
+
+    // enforce bounds
+    var rightBound = target.parentNode.clientWidth - target.clientWidth;
+    if(x <= rightBound){
+        x = rightBound;
+    }
+    if(x > 0){
+        x = 0;
+    }
+    var bottomBound = target.parentNode.clientHeight - target.clientHeight;
+    if(y <= bottomBound){
+        y = bottomBound;
+    }
+    if(y > 0){
+        y = 0;
+    }
+
+    if(target){
+        target.style.margin = y + "px 0px 0px " + x + "px";
+    }
+}
+
+/*centers the given coords
+ */
+function panTo(x,y) {
+    _panTo(target.parentNode.clientWidth/2 - x, target.parentNode.clientHeight/2 - y);
+}
 
 
 // SETUP
@@ -80,3 +101,5 @@ for(var i = 0; i < pannables.length; i++){
     }
 
 }
+
+target = pannables.item(0); // give us A target to start with

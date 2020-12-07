@@ -60,6 +60,7 @@
 <div class="content">
 
     {% block content %}
+
     <p class="quote">
         {{ info.quote | safe}}
     </p>
@@ -84,6 +85,11 @@
             {% endfor %}
         {% endif %}
         <a class="edit" href="{% url 'admin:wiki_infopage_change' info.pk %}">Edit</a>
+
+        {% if info.map_location %}
+            {% include 'wiki/map.html' %}
+        {% endif %}
+
     </div>
 
     {% if info.prev_page %}
@@ -92,6 +98,7 @@
     {% if info.next_page %}
         <a id="next" class="pageturn" href="{% url 'info' info.next_page.pk %}">Next Page</a>
     {% endif %}
+
     {% endblock %}
 
 </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import InfoPage
+from .models import InfoPage, MapLocation
 
 
 def base_context(request):
@@ -12,6 +12,7 @@ def base_context(request):
 
     # set the secrecy level
     context['show_secrets'] = request.session.get('show_secrets', False)
+    context['locations'] = MapLocation.objects.all()
 
     return context
 
@@ -34,8 +35,9 @@ def index(request, **kwargs):
 
 
 def world_map(request):
-    template_name = "wiki/map.html"
-    return render(request, template_name, base_context(request))
+    template_name = "wiki/mappage.html"
+    context = base_context(request)
+    return render(request, template_name, context)
 
 def elvish(request):
     template_name = "wiki/elvish.html"
