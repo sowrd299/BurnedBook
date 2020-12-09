@@ -11,6 +11,17 @@
     object-fit: cover;
 }
 
+/*
+.map, .map img {
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+*/
+
 .mapsticky {
     position: absolute;
     top: 100px;
@@ -32,6 +43,8 @@
 .note {
     color: #706060;
     text-align: right;
+    font-weight: normal;
+    font-size: 0.75em;
 }
 
 .maplocation:hover {
@@ -41,6 +54,11 @@
 
 .mapcity {
     font-size: 1.2em;
+}
+
+.mapregion {
+    font-size: 1.4em;
+    color: #00000080;
 }
 
 .mapcity image {

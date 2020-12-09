@@ -13,13 +13,15 @@
         {% for location in locations %}
             <a class="maplocation mapsticky map{{location.loc_type}} matchbackground" href="{% url 'info' location.page.pk %}"
                 style="top: {{ location.y }}px; left: {{ location.x }}px ">
-                <image src="
-                    {% if location.loc_type == 'city' %}
-                        {% static 'wiki/city.png' %}
-                    {% else %}
-                        {% static 'wiki/village.png' %}
-                    {% endif %}
-                "/>
+                {% if location.loc_type != 'region' %}
+                    <image src="
+                        {% if location.loc_type == 'city' %}
+                            {% static 'wiki/city.png' %}
+                        {% else %}
+                            {% static 'wiki/village.png' %}
+                        {% endif %}
+                    "/>
+                {% endif %}
                 {{ location.title }}
                 <br/>
                 {% if location.note %}

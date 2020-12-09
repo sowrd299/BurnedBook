@@ -164,16 +164,24 @@ span.l {
 
 
 /* parchement colors */
-.sidebar, .content .textbox, .content .textbox .matchbackground {
+.sidebar, .content .textbox {
     background-color: #d0c0a0;
+} 
+
+.content .textbox .matchbackground {
+    background: -moz-radial-gradient(closest-side, #d0c0a0, #00000000);
 }
 
 .content .textbox .matchcolortoback {
     color: #d0c0a0;
 }
 
-.sidebar:hover, .content .textbox:hover, .content .textbox:hover .matchbackground {
+.sidebar:hover, .content .textbox:hover {
     background-color: #e0d0b0;
+}
+
+.content .textbox:hover .matchbackground {
+    background: -moz-radial-gradient(closest-side, #d0c0a0, #00000000);
 }
 
 .content .textbox:hover .matchcolortoback{
