@@ -16,6 +16,29 @@ class InfoPage(models.Model):
     def prev_page(self):
         return InfoPage.objects.get(next_page = self)
 
+    def _chapter(self):
+        prev = self
+        i = 0
+        while True:
+            try:
+                prev = prev.prev_page()
+            except InfoPage.DoesNotExist:
+                break
+            
+            i += 1
+
+        return (prev, i)
+
+    def chapter_info(self):
+        return self._chapter()[0]
+
+    def chapter_number(self):
+        return self._chapter()[1]
+
+    def chapter(self):
+        info, number = self._chapter()
+        return "{}, Chapter {}".format(info.title(), number) if number > 0 else "Introduction"
+
     def is_secret(self):
         return len(self.text) == 0 and len(InfoSecret.objects.filter(page = self))
 

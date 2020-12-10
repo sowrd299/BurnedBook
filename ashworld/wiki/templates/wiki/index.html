@@ -55,6 +55,15 @@
     <a href="{% url 'info' 'Fauna' %}">Fauna</a>
     <a href="{% url 'info' 'Magic' %}">Magic</a>
     <a href="{% url 'elvish' %}">Tongues</a>
+
+    <form action="{% url 'search' %}" method="get">
+        <span>Search:</span>
+        <button type="sumbit" class="arrowbutton">
+            <img src="{% static 'wiki/arrow.png' %}" />
+        </button>
+        <input type="text" id="terms" name="terms"/>
+    </form>
+
 </div>
 
 <div class="content">
@@ -65,6 +74,7 @@
         {{ info.quote | safe}}
     </p>
     <div class="textbox">
+        <h3 class="chapter">{{ info.chapter }}</h3>
         <h2>
             {% if info.is_secret and not show_secrets %}
                 <spawn class="secret">There are only secrets here.</span>

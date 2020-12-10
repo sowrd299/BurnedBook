@@ -36,3 +36,10 @@
 #prev.pageturn{
     float: left;
 }
+
+h3.chapter {
+    font-size: 0.75em;
+    color: #00000080;
+    margin-bottom: -12px;
+    font-family: 'Cinzel Decorative', cursive;
+}

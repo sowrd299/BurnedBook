@@ -1,0 +1,26 @@
+{% extends "wiki/index.html" %}
+{% load static %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'wiki/search.css' %}"/>
+
+{% endblock %}
+
+{% block content %}
+
+    <p class="quote">
+        "All great things start with a question. Readers and writers always have a question before they open a book. Our great library cities serve only to answer those questions."
+    </p>
+    <p class="quoteauthor">
+        -Vernal Lord Ibatas
+    </p>
+
+    <div class="textbox">
+    <h2>Foundings from the Index:</h2>
+    {% for info in infos %}
+        <a class="searchresult" href="{% url 'info' info.pk %}">{{ info.short_title }}, <span class="chapter">{{ info.chapter }}</span></a>
+    {% endfor %}
+    </div>
+
+{% endblock %}

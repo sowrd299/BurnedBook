@@ -7,5 +7,6 @@ urlpatterns = [
     path('map', views.world_map, name='map'),
     path('elvish', views.elvish, name='elvish'),
     path('<str:pagetitle>-info', views.index, name='info'),
-    path('toggle-secrets', views.toggle_secrets, name='togglesecrets')
+    path('toggle-secrets', views.toggle_secrets, name='togglesecrets'),
+    path('search', views.search, name='search')
 ]
