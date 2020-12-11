@@ -14,6 +14,10 @@ def base_context(request):
     context['show_secrets'] = request.session.get('show_secrets', False)
     context['locations'] = MapLocation.objects.all()
 
+    # get the search terms
+    context['terms_str'] = request.GET.get('terms')
+    context['terms'] = context['terms_str'].split(' ') if context['terms_str'] else []
+
     return context
 
 
@@ -57,13 +61,22 @@ def search(request):
     Displays a list of search-result info pages
     '''
 
+    context = base_context(request)
+    context['bad_terms'] = []
+
     # do the search
     infos = InfoPage.objects.all()
-    for term in request.GET.get('terms').split(' '):
-        infos = infos.filter(text__icontains=term).order_by("short_title")
+    for term in context['terms']:
+        new_infos = infos.filter(text__icontains=term).order_by("short_title")
+        if new_infos.count():
+            infos = new_infos
+        else:
+            # through out terms that restrict the search to no terms
+            # favors earlier terms
+            context['bad_terms'].append(term)
+
 
     # build the context
-    context = base_context(request)
     context['infos'] = infos
 
     # cleanup

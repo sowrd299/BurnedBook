@@ -17,10 +17,23 @@
     </p>
 
     <div class="textbox">
-    <h2>Findings from the Index:</h2>
-    {% for info in infos %}
-        <a class="searchresult" href="{% url 'info' info.pk %}">{{ info.short_title }}, <span class="chapter">{{ info.chapter }}</span></a>
-    {% endfor %}
+
+        {% if bad_terms %}
+        <p>
+            The terms
+            {% for term in bad_terms %}
+                <em>"{{ term }}"</em>
+            {% endfor %}
+            could not be found.
+        </p>
+        {% endif %}
+
+
+        <h2>Findings from the Index:</h2>
+        {% for info in infos %}
+            <a class="searchresult" href="{% url 'info' info.pk %}?terms={{terms_str}}">{{ info.short_title }}, <span class="chapter">{{ info.chapter }}</span></a>
+        {% endfor %}
+
     </div>
 
 {% endblock %}

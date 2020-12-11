@@ -1,4 +1,5 @@
 {% load static %}
+{% load wiki_extras %}
 
 <!DOCTYPE HTML>
 
@@ -84,13 +85,13 @@
             {% endif %}
         </h2>
         <p>
-            {{ info.text | safe }}
+            {{ info.text | strongterms:terms }}
         </p>
         {% if show_secrets %}
             <!--- Displaying secrets -->
             {% for secret in info.infosecret_set.all %}
                 <p class="secret">
-                    {{ secret.text | safe }}
+                    {{ secret.text | strongterms:terms }}
                 </p>
             {% endfor %}
         {% endif %}
