@@ -32,6 +32,7 @@ body:before {
     background-repeat: repeat;
     text-align: center;
     background-size: 200px 200px;
+    z-index: 10;
 }
 
 .title:before {
@@ -142,6 +143,18 @@ body:before {
     line-height: 1.5;
 }
 
+.content .textbox p {
+    position: relative; /* for images and the such */
+}
+
+.content .textbox p img {
+    position: absolute;
+    right: 0;
+    top: -6em;
+    opacity: 0.25;
+    width: 30%;
+}
+
 /* sidebars */
 .sidebar {
     position: absolute;
@@ -152,6 +165,7 @@ body:before {
     width: 10%;
     max-width: 10em;
     overflow: hidden;
+    z-index: 20;
 
     /* for hiding off screen */
     transform: translate(-95%, -50%);
@@ -204,6 +218,10 @@ body:before {
 a {
     text-decoration: none;
     color: #000000;
+}
+
+.textbox p a {
+    color: #702050;
 }
 
 /* accomodating draconic syntax */

@@ -31,7 +31,7 @@ def index(request, **kwargs):
 
     # find the info page
     short_title = kwargs['pagetitle'] if ('pagetitle' in kwargs) else 'Introduction'
-    info = get_object_or_404(InfoPage, short_title=short_title) 
+    info = get_object_or_404(InfoPage, short_title__iexact=short_title) 
     context['info'] = info
 
     # the actual return
