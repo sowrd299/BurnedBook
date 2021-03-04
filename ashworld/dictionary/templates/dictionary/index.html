@@ -1,0 +1,38 @@
+{% extends "wiki/index.html" %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'dictionary/style.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<p class="quote"></p>
+<div class="textbox">
+    <h2>Dictionary of Tongues of the Ashworld</h2>
+
+    <form>
+        <h3>Languages:</h3>
+        {% for language in languages %}
+            <input type="checkbox" value="{{ language.pk }}" name="{{ language.pk }}"/><span><a>{{ language }}</a></span>
+        {% endfor %}
+        <h3>Period and Dialect:</h3>
+        {% for variant in variants %}
+            <input type="checkbox" value="{{ variant.pk }}" name="{{ variant.pk }}"/><span>{{ variant }}</span>
+        {% endfor %}
+    </form>
+
+    {% for entry in entries %}
+        <div class="entry">
+            <div class="header">
+                <h3>{{ entry.word | safe }}</h3>
+                <p class="pos">{% if entry.variant %} {{ entry.variant }} {% endif %}{{ entry.language }} ({{ entry.pos }})</p>
+            </div>
+            <div class="text">
+                <p>{{ entry.definition | safe }}</p>
+                <p class="note">{{ entry.note | safe }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

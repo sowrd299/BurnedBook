@@ -220,7 +220,7 @@ a {
     color: #000000;
 }
 
-.textbox p a {
+.textbox p a, .textbox form a {
     color: #702050;
 }
 
