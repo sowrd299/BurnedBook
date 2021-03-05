@@ -19,16 +19,16 @@
             </button>
         </div>
 
-        <span>Word: </span><input type="text" name="word"/>
-        <span>Definition: </span><input type="text" name="definition"/>
+        <label>Word: </label><input type="text" name="word"/>
+        <label>Definition: </label><input type="text" name="definition"/>
 
         <h3>Languages:</h3>
         {% for language in languages %}
-            <input type="checkbox" value="True" name="{{ language.pk }}"/><span><a>{{ language }}</a></span>
+            <input type="checkbox" value="True" name="{{ language.pk }}"/><label><a>{{ language }}</a></label>
         {% endfor %}
         <h3>Periods and Dialects:</h3>
         {% for variant in variants %}
-            <input type="checkbox" value="True" name="{{ variant.pk }}"/><span>{{ variant }}</span>
+            <input type="checkbox" value="True" name="{{ variant.pk }}"/><label>{{ variant }}</label>
         {% endfor %}
     </form>
 

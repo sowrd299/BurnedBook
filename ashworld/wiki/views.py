@@ -58,11 +58,6 @@ def world_map(request):
     context = base_context(request)
     return render(request, template_name, context)
 
-def elvish(request):
-    template_name = "wiki/elvish.html"
-    return render(request, template_name, base_context(request))
-
-
 def toggle_secrets(request):
     '''
     Toggles a user's status for viewing secrets

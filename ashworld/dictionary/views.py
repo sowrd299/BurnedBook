@@ -8,18 +8,28 @@ def index(request):
 
     entries = Entry.objects.all();
 
-    for model in (Language, LanguageVariant):
-        entries = filter_checked(model, request.GET, entries)
+    entries = filter_checked(Language, request.GET, entries, "language")
+    entries = filter_checked(LanguageVariant, request.GET, entries, "variant")
 
-    if 'word' in request.GET:
-        entries = search(entries, request.GET['word'].split(' '), 'word', 'word', [])
-    if 'definition' in request.GET:
-        entries = search(entries, request.GET['definition'].split(' '), 'definition', 'word', [])
+    bad_terms = [] 
+
+    word = 'word' in request.GET and request.GET['word']
+    definition = 'definition' in request.GET and request.GET['definition']
+
+    if word:
+        entries = search(entries, request.GET['word'].split(' '), 'word', 'word', bad_terms)
+    if definition:
+        entries = search(entries, request.GET['definition'].split(' '), 'definition', 'word', bad_terms)
+
+    if bad_terms or (not word and not definition):
+        entries = []
 
     context = {
         'entries' : entries,
         'languages' : Language.objects.all(),
         'variants' : LanguageVariant.objects.all(),
     }
+
+    context.update(request.GET) # enable refilling the form
 
     return render(request, 'dictionary/index.html', context)

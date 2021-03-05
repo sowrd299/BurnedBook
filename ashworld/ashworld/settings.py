@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'wiki.apps.WikiConfig',
     'dictionary.apps.DictionaryConfig',
+    'scribe.apps.ScribeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

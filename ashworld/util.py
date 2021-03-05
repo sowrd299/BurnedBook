@@ -14,9 +14,9 @@ def search(objects, terms, field, order_field, bad_terms):
     return objects
 
 
-def filter_checked(model, get, objects):
+def filter_checked(model, get, objects, field):
     selected = model.objects.filter(name__in = (i for i in get if get[i]=='True'))
     if selected:
-        return objects.filter(language__in = selected)
+        return objects.filter(**{field + "__in":selected})
 
     return objects
