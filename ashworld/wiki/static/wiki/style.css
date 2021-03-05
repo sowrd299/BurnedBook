@@ -200,16 +200,16 @@ body:before {
     max-width: 100%;
 }
 
-.sidebar form .arrowbutton{
+form .arrowbutton{
     background: transparent;
     border: none;
 }
 
-.sidebar form .arrowbutton:hover {
+form .arrowbutton:hover {
     background: -moz-radial-gradient(closest-side, #70b0e080, #00000000);
 }
 
-.sidebar form .arrowbutton img{
+form .arrowbutton img{
     display: inline;
     height: 1em;
 }

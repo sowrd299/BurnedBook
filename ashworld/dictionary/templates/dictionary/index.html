@@ -11,14 +11,24 @@
 <div class="textbox">
     <h2>Dictionary of Tongues of the Ashworld</h2>
 
-    <form>
+    <form action="{% url 'dictionary' %}" method="get">
+        <div>
+            <h3 style="display: inline">Search:</h3>
+            <button type="sumbit" class="arrowbutton">
+                <img src="{% static 'wiki/arrow.png' %}" />
+            </button>
+        </div>
+
+        <span>Word: </span><input type="text" name="word"/>
+        <span>Definition: </span><input type="text" name="definition"/>
+
         <h3>Languages:</h3>
         {% for language in languages %}
-            <input type="checkbox" value="{{ language.pk }}" name="{{ language.pk }}"/><span><a>{{ language }}</a></span>
+            <input type="checkbox" value="True" name="{{ language.pk }}"/><span><a>{{ language }}</a></span>
         {% endfor %}
-        <h3>Period and Dialect:</h3>
+        <h3>Periods and Dialects:</h3>
         {% for variant in variants %}
-            <input type="checkbox" value="{{ variant.pk }}" name="{{ variant.pk }}"/><span>{{ variant }}</span>
+            <input type="checkbox" value="True" name="{{ variant.pk }}"/><span>{{ variant }}</span>
         {% endfor %}
     </form>
 
