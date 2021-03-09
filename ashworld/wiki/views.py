@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from urllib.parse import urlencode
-from .models import InfoPage, MapLocation
+from .models import InfoPage, MapLocation, SecretPassword
 from util import search as search_objects
+from functools import reduce
 
 
 def base_context(request):
@@ -14,7 +15,11 @@ def base_context(request):
 
     # set the secrecy level
     context['show_secrets'] = request.session.get('show_secrets', False)
+
+    context['passwords'] = request.session.get('passwords')
     context['locations'] = MapLocation.objects.all()
+
+    context['unlocked_secrets'] = list(reduce(lambda x,y : x.union(y), (SecretPassword.objects.get(pk=i).unlocks() for i in context['passwords'])))
 
     # get the search terms
     context['terms_str'] = request.GET.get('terms')
@@ -58,11 +63,39 @@ def world_map(request):
     context = base_context(request)
     return render(request, template_name, context)
 
+
 def toggle_secrets(request):
     '''
     Toggles a user's status for viewing secrets
     '''
     request.session['show_secrets'] = not request.session.get('show_secrets', False)
+    return redirect(request.GET.get('return'))
+
+
+def add_password(request):
+    '''
+    Allows a user to view a particular password
+    '''
+    try:
+        passwords = request.session.get('passwords', [])
+        passwords.append(SecretPassword.objects.get(password = request.POST['password']).pk)
+        request.session['passwords'] = list(set(passwords))
+    except SecretPassword.DoesNotExist:
+        pass
+
+    return redirect(request.GET.get('return'))
+
+
+def remove_password(request, remove):
+    try:
+        passwords = request.session.get('passwords', [])
+        passwords.remove(SecretPassword.objects.get(password = remove).pk)
+        request.session['passwords'] = passwords
+    except SecretPassword.DoesNotExist:
+        pass
+
+    request.session['show_secrets'] = False
+
     return redirect(request.GET.get('return'))
 
 

@@ -28,14 +28,17 @@ body:before {
     margin: 0%;
     padding: 10px;
     /*background: #554508;*/
-    background-image: url("/static/wiki/wood.jpg");
-    background-repeat: repeat;
     text-align: center;
-    background-size: 200px 200px;
     z-index: 10;
 }
 
-.title:before {
+.title, .passwords{
+    background-image: url("/static/wiki/wood.jpg");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+.title:before, .passwords:before {
     position: absolute;
     content:"";
     top:0;
@@ -109,6 +112,58 @@ body:before {
 }
 
 
+/* PASSWORDS BAR */
+.passwords {
+    position: absolute;
+    left: 16px;
+    /*top: calc(6em - 1em - 8px);*/
+    top: 0;
+    transform: translate(0, calc(18px + 1em - 100%));
+    width: 15%;
+    padding: 4px;
+    padding-bottom: 8px;
+    transition: top 1s;
+    transition: bottom 1s;
+    transition: transform 1s;
+}
+
+.passwords:before {
+    background: #382702;
+}
+
+.passwords:hover {
+    transform: translate(0, 0);
+}
+
+.passwords:before{
+    z-index: 0;
+}
+
+.passwords input {
+    max-width: 80%;
+}
+
+.passwords p, .passwords form, .passwords h3 {
+    position: relative;
+    z-index: 1;
+}
+
+.passwords h3 {
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 1px;
+}
+
+.passwords p {
+    margin: 1px;
+}
+
+.passwords a {
+    color: #c02030;
+    font-family: 'Tangerine', cursive;
+    font-weight: bold;
+    font-size: 1.1em;
+}
 
 /* CONTENT */
 
@@ -231,7 +286,7 @@ span.l {
 
 
 /* shadowed elements */
-.title, .content .textbox, .sidebar{
+.title, .content .textbox, .sidebar, .passwords{
     box-shadow: 8px 8px 4px 4px #00000080;
 }
 

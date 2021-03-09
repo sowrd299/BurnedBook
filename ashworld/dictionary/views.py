@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Entry, Language, LanguageVariant
 from util import search, filter_checked
+from wiki.views import base_context
 
 # Create your views here.
 
@@ -29,6 +30,8 @@ def index(request):
         'languages' : Language.objects.all(),
         'variants' : LanguageVariant.objects.all(),
     }
+
+    context.update(base_context(request))
 
     context.update(request.GET) # enable refilling the form
 

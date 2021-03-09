@@ -65,11 +65,48 @@ class InfoSecret(models.Model):
     def __str__(self):
         return self.page.title() + " (" + (self.text[:10] + "..." if len(self.text) > 10 else self.text) + ")"
 
+    def passwords(self):
+        '''
+        Returns a table of all the secrets unlocked by this password
+        '''
+        ids = self.password_unlocks_set.values_list('password', flat=True)
+        return SecretPassword.objects.filter(pk__in=set(ids))
+
+
+class SecretPassword(models.Model):
+    '''
+    A model representing a password that can be used to unlock secrets
+    '''
+
+    password = models.CharField(max_length=128, primary_key=True)
+
+    def __str__(self):
+        return self.password
+
+    def unlocks(self):
+        '''
+        Returns a table of all the secrets unlocked by this password
+        '''
+        ids = self.password_unlocks_set.values_list('secret', flat=True)
+        return InfoSecret.objects.filter(pk__in=set(ids))
+
+
+class PasswordUnlocks(models.Model):
+    '''
+    A many-to-many relationship that details which passwords unlock
+    which secrets
+    '''
+    password = models.ForeignKey(SecretPassword, models.CASCADE, related_name="password_unlocks_set")
+    secret = models.ForeignKey(InfoSecret, models.CASCADE, related_name="password_unlocks_set")
+
+    def __str__(self):
+        return "{} -> {}".format(self.password, self.secret)
+
 
 
 class MapLocation(models.Model):
     '''
-    A class representing a location on the map
+    A model representing a location on the map
     '''
 
     #  most data about the location comes from its wiki page

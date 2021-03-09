@@ -5,6 +5,13 @@
     font-style: italic;
 }
 
+.secretfrom {
+    color: #707070;
+    font-style: italic;
+    text-align: right;
+    font-size: 0.9em;
+}
+
 
 /* ALL LINKS */
 .edit, .pageturn {

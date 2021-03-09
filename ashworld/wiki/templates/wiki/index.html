@@ -27,6 +27,25 @@
     <image src="{% static 'wiki/Phoenix.png' %}" alt=""/>
     <span><h2>Gesjiklin's Encyclopedia of the</h2><h1>Ashworld</h1></span>
 
+    <div class="passwords">
+        <form action="{% url 'addpassword' %}?return={{request.path}}" method="post">
+            {% csrf_token %}
+            <label><h3>Password:</h3></label>
+            <input name="password" type="password"/>
+        </form>
+        {% if passwords %}
+            <h3>Passwords</h3>
+            {% for password in passwords %}
+                <p><a href="{% url 'removepassword' password %}?return={{request.path}}">X</a> {{ password }}</p>
+            {% endfor %}
+        {% endif %}
+        <h3>
+            <img src="{% static 'wiki/openEye.png' %}" alt="" height="16"/>
+            Secrets
+            <img src="{% static 'wiki/closedEye.png' %}" alt="" height="16"/>
+        </h3>
+    </div>
+    <!--
     <p id="secrets" class="left">
         <a href="{% url 'togglesecrets' %}?return={{request.path}}">
             <img id={% if show_secrets %}"main"{% else %}"alt"{% endif %} src="{% static 'wiki/openEye.png' %}" alt="" height="16"/>
@@ -38,6 +57,7 @@
             {% endif %}
         </a>
     </p>
+    -->
     <p id="datetime" class="right">
         It is presently HOUR SECTION <br/>
         Summer, 231st Year of Her Reign
@@ -87,14 +107,22 @@
         <p>
             {{ info.text | strongterms:terms }}
         </p>
-        {% if show_secrets %}
-            <!--- Displaying secrets -->
-            {% for secret in info.infosecret_set.all %}
+        <!--- Displaying secrets -->
+        {% for secret in info.infosecret_set.all %}
+            {% if show_secrets or secret in unlocked_secrets %}
                 <p class="secret">
                     {{ secret.text | strongterms:terms }}
                 </p>
-            {% endfor %}
-        {% endif %}
+                <p class="secretfrom">
+                    Revealed by: 
+                    {% for password in secret.passwords %}
+                        {% if password.pk in passwords %}
+                            "{{ password }}"
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        {% endfor %}
         <a class="edit" href="{% url 'admin:wiki_infopage_change' info.pk %}">Edit</a>
 
         {% if info.map_location %}
