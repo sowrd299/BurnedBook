@@ -107,8 +107,9 @@ def add_password(request):
         passwords = request.session.get('passwords', [])
         passwords.append(SecretPassword.objects.get(password = request.POST['password']).pk)
         request.session['passwords'] = list(set(passwords))
+        push_popup(request, 'wiki/popup/password_added.html')
     except SecretPassword.DoesNotExist:
-        pass
+        push_popup(request, 'wiki/popup/password_failed.html')
 
     return redirect(request.GET.get('return'))
 
@@ -118,7 +119,7 @@ def remove_password(request, remove):
         passwords = request.session.get('passwords', [])
         passwords.remove(SecretPassword.objects.get(password = remove).pk)
         request.session['passwords'] = passwords
-        push_popup(request, 'wiki/password_removed.html')
+        push_popup(request, 'wiki/popup/password_removed.html')
     except SecretPassword.DoesNotExist:
         pass
 
