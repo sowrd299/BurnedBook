@@ -68,6 +68,17 @@
 
 <div class="titlebuffer"></div>
 
+{% if popupform %}
+    <div id="popup" class="popup">
+        <div class="textbox">
+            {% include popupform %}
+            <button onclick="document.getElementById('popup').classList.add('hidden')">
+                Okay
+            </button>
+        </div>
+    </div>
+{% endif %}
+
 <div class="sidebar">
     <a href="{% url 'index' %}">Introduction</a>
     <a href="{% url 'map' %}">Map</a>

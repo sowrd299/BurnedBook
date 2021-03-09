@@ -6,6 +6,30 @@ from util import search as search_objects
 from functools import reduce
 
 
+def push_popup(request, popupform):
+    '''
+    Queues a popup to be displayed to the given user
+    '''
+    queue = request.session.get('popupforms', [])
+    if not isinstance(queue, list):
+        queue = []
+    queue.append(popupform)
+    request.session['popupforms'] = queue
+
+
+def pop_popup(request):
+    '''
+    Dequeues the next popup to display
+    '''
+    queue = request.session.get('popupforms', [])
+    if queue and isinstance(queue, list):
+        r = queue.pop(0)
+        request.session['popupforms'] = queue 
+        return r
+    else:
+        return None
+
+
 def base_context(request):
     '''
     Returns a basic context set up with variables useful in most pages
@@ -20,6 +44,9 @@ def base_context(request):
     context['locations'] = MapLocation.objects.all()
 
     context['unlocked_secrets'] = list(reduce(lambda x,y : x.union(y), (SecretPassword.objects.get(pk=i).unlocks() for i in context['passwords'])))
+
+    # popups
+    context['popupform'] = pop_popup(request)
 
     # get the search terms
     context['terms_str'] = request.GET.get('terms')
@@ -91,6 +118,7 @@ def remove_password(request, remove):
         passwords = request.session.get('passwords', [])
         passwords.remove(SecretPassword.objects.get(password = remove).pk)
         request.session['passwords'] = passwords
+        push_popup(request, 'wiki/password_removed.html')
     except SecretPassword.DoesNotExist:
         pass
 
