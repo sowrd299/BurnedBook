@@ -200,7 +200,7 @@ body:before {
     max-width: 30%;
 }
 
-button {
+.popup button {
     background: none;
     border-style: solid;
     border-width: 4px;
@@ -218,7 +218,7 @@ button {
     border-radius: 50%;
 }
 
-button:hover {
+.popup button:hover {
     background: #801015;
     color: #b0b0d0
 }
