@@ -43,7 +43,8 @@ def base_context(request):
     context['passwords'] = request.session.get('passwords')
     context['locations'] = MapLocation.objects.all()
 
-    context['unlocked_secrets'] = list(reduce(lambda x,y : x.union(y), (SecretPassword.objects.get(pk=i).unlocks() for i in context['passwords'])))
+    if context['passwords']:
+        context['unlocked_secrets'] = list(reduce(lambda x,y : x.union(y), (SecretPassword.objects.get(pk=i).unlocks() for i in context['passwords'])))
 
     # popups
     context['popupform'] = pop_popup(request)
