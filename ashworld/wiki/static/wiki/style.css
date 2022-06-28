@@ -267,6 +267,8 @@ body:before {
     top: -6em;
     opacity: 0.25;
     width: 30%;
+	z-index: 1;
+	pointer-events: none;
 }
 
 
@@ -338,6 +340,12 @@ a {
 
 .textbox p a, .textbox form a {
     color: #702050;
+}
+
+.textbox:hover p a {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: #702050;
 }
 
 /* accomodating draconic syntax */

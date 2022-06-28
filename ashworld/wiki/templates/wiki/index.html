@@ -84,6 +84,7 @@
     <a href="{% url 'map' %}">Map</a>
     <a href="{% url 'info' 'Gods' %}">Gods</a>
     <a href="{% url 'info' 'History' %}">History</a>
+	<a href="{% url 'info' 'Adventurers' %}">Adventurers</a>
     <a href="{% url 'info' 'Fauna' %}">Fauna</a>
     <a href="{% url 'info' 'Magic' %}">Magic</a>
     <a href="{% url 'dictionary' %}">Tongues</a>
@@ -109,7 +110,7 @@
         <h3 class="chapter">{{ info.chapter }}</h3>
         <h2>
             {% if info.is_secret and not show_secrets %}
-                <spawn class="secret">There are only secrets here.</span>
+                <span class="secret">There are only secrets here.</span>
             {% else %}
                 {{ info.title | safe }}
                 <!-- Dispalying page -->
@@ -134,7 +135,9 @@
                 </p>
             {% endif %}
         {% endfor %}
-        <a class="edit" href="{% url 'admin:wiki_infopage_change' info.pk %}">Edit</a>
+		{% if show_edit %}
+			<a class="edit" href="{% url 'admin:wiki_infopage_change' info.pk %}">Edit</a>
+		{% endif %}
 
         {% if info.map_location %}
             {% include 'wiki/map.html' %}
