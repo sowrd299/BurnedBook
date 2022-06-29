@@ -48,6 +48,12 @@ function onMouseUp(event) {
     }
 }
 
+/*
+Leave the object should stop the pan, just like letting go of the mouse
+*/
+function onMouseOut(event){
+	onMouseUp(event);
+}
 
 /*
 Executes a pan
@@ -93,6 +99,7 @@ for(var i = 0; i < pannables.length; i++){
     console.log("Setting up for " + pannables.item(i));
     pannables.item(i).onmousedown = onMouseDown;
     pannables.item(i).onmouseup = onMouseUp;
+	pannables.item(i).onmouseout = onMouseOut;
     pannables.item(i).draggable = false;
 
     var children = pannables.item(i).children;

@@ -7,7 +7,8 @@
 
 <div class="mapcontainer">
     <div id="worldmap" class="map pannable">
-        <image class="map" src="{% static 'wiki/map.png' %}" alt="Map"/>
+        <image id="worldmap-image" class="map" src="{% static 'wiki/map.png' %}" alt="Map"/>
+		<canvas id="worldmap-canvas" class="map"> </canvas>
         <image id="mapmarker" class="mapsticky" src="{% static 'wiki/flag.png' %}" style="width: 32px; height: 32px;" alt="X"/>
 
         {% for location in locations %}
