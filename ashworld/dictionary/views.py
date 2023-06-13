@@ -22,7 +22,7 @@ def index(request):
     if definition:
         entries = search(entries, request.GET['definition'].split(' '), 'definition', 'word', bad_terms)
 
-    if bad_terms or (not word and not definition):
+    if bad_terms or len(entries) == len(Entry.objects.all()):
         entries = []
 
     context = {

@@ -20,7 +20,7 @@ def strongterms(value, terms, start_strong="<strong>", end_strong="</strong>"):
     if not terms:
         return mark_safe(value)
 
-    term_re = re.compile("({})".format("|".join(map(case_agnostic_re, terms))))
+    term_re = re.compile("({})([^\.]|.[\n ])".format("|".join(map(case_agnostic_re, terms))))
         
     r = ""
     i = 0 # ind of end of last match
