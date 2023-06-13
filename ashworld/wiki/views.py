@@ -30,6 +30,8 @@ def pop_popup(request):
 		return None
 
 
+ignored_terms = set(["a", "the", "in", "of", "on", "to", "is", "that"])
+
 def base_context(request):
 	'''
 	Returns a basic context set up with variables useful in most pages
@@ -51,7 +53,7 @@ def base_context(request):
 
 	# get the search terms
 	context['terms_str'] = request.GET.get('terms')
-	context['terms'] = context['terms_str'].split(' ') if context['terms_str'] else []
+	context['terms'] = list(filter(lambda term : not term in ignored_terms, context['terms_str'].split(' ') if context['terms_str'] else []))
 
 	# if the edit button should be shown
 	context['show_edit'] = request.get_host() == "127.0.0.1:8000"
