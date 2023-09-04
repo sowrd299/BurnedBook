@@ -1,0 +1,66 @@
+.mapcontainer {
+    position: relative;
+    overflow: hidden;
+    height: 50vh;
+}
+
+.map {
+    position: relative;
+    margin: 0 0; 
+    width: 1500px;
+    object-fit: cover;
+}
+
+/**/
+.map, .map img {
+    /*-drag: none; */
+    user-select: none;
+    -moz-user-select: none;
+    /*-webkit-user-drag: none;*/
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+/**/
+
+.mapsticky {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+.blurededge {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 16px 16px inset;
+    
+    /* because its a frame, assume we don't want to click on it */
+    pointer-events: none;
+}
+
+.note {
+    color: #706060;
+    text-align: right;
+    font-weight: normal;
+    font-size: 0.75em;
+}
+
+.maplocation:hover {
+    font-weight: bold;
+    color: #b03090;
+}
+
+.mapcity {
+    font-size: 1.2em;
+}
+
+.mapregion {
+    font-size: 1.4em;
+    color: #00000080;
+}
+
+.mapcity image {
+    height: 1.2em;
+}

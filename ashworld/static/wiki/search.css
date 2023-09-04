@@ -1,0 +1,17 @@
+.searchresult {
+    margin-left: 2em;
+    display: block;
+    font-size: 1.1em;
+    margin-top: 6px;
+}
+
+.searchresult:hover {
+    font-weight: bold;
+    color: #b03090;
+}
+
+.searchresult .chapter {
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #00000080;
+}

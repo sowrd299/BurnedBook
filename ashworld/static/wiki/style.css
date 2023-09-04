@@ -1,0 +1,393 @@
+body {
+    padding: 0%;
+    margin: 0%;
+    /* background-image: url('/static/wiki/NW_EmpireMap.png'); */
+    /* background-color: #202020; */
+    background-image: url("/static/wiki/stone.png");
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+body:before {
+    position: fixed;
+    content:"";
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    opacity: 0.985;
+    background-color: #171717;
+    z-index: -10;
+}
+
+.title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0%;
+    padding: 10px;
+    /*background: #554508;*/
+    text-align: center;
+    z-index: 10;
+}
+
+.title, .passwords{
+    background-image: url("/static/wiki/wood.jpg");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+.title:before, .passwords:before {
+    position: absolute;
+    content:"";
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    opacity: 0.85;
+    background: #453605;
+    z-index: -10;
+}
+
+.title, .title a {
+    color: #f0f0ff;
+}
+
+.title, .titlebuffer{
+    height: 6em;
+}
+
+.title img {
+    max-height: 100%;
+}
+
+.title span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.title h2 {
+    margin-bottom: 0%;
+    font-size: 1.25em;
+}
+
+.title h1 {
+    margin-top: 0%;
+    margin-bottom: 8px;
+    font-size: 3em;
+}
+
+.title h1, h2, .sidebar a, .sidebar form {
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+
+/* other content on the title bar */
+
+.title p {
+    position: absolute;
+    top: 0;
+    padding: 0px 8px; 
+}
+
+.title p.right {
+    text-align: right;
+    right: 2em;
+}
+
+.title p.left {
+    text-align: left;
+    left: 0;
+}
+
+.title p img#main, .title p:hover img#alt {
+    display: inline;
+}
+
+.title p img#alt, .title p:hover img#main {
+    display: none;
+}
+
+
+/* PASSWORDS BAR */
+.passwords {
+    position: absolute;
+    left: 16px;
+    /*top: calc(6em - 1em - 8px);*/
+    top: 0;
+    transform: translate(0, calc(18px + 1em - 100%));
+    width: 15%;
+    padding: 4px;
+    padding-bottom: 8px;
+    transition: top 1s;
+    transition: bottom 1s;
+    transition: transform 1s;
+}
+
+.passwords:before {
+    background: #382702;
+}
+
+.passwords:hover {
+    transform: translate(0, 0);
+}
+
+.passwords:before{
+    z-index: 0;
+}
+
+.passwords input {
+    max-width: 80%;
+}
+
+.passwords p, .passwords form, .passwords h3 {
+    position: relative;
+    z-index: 1;
+}
+
+.passwords h3 {
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 1px;
+}
+
+.passwords p {
+    margin: 1px;
+}
+
+.passwords a {
+    color: #c02030;
+    font-family: 'Tangerine', cursive;
+    font-weight: bold;
+    font-size: 1.1em;
+} 
+
+
+/* POPUP */
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    background-image: url("/static/wiki/fog01.png");
+    background-size: auto 150%; 
+    background-position: center bottom;
+}
+
+.popup:before {
+    position: fixed;
+    content:"";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+    background: #000000;
+}
+
+.popup .textbox {
+    /* centered */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 30%;
+}
+
+.popup button {
+    background: none;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #c02030;
+    height: 5em;
+    width: 5em;
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight: bold;
+    transition: background 0.5s;
+    transition: color 0.5s;
+    text-align: center;
+    float: right;
+
+    /* circle */
+    border-radius: 50%;
+}
+
+.popup button:hover {
+    background: #801015;
+    color: #b0b0d0
+}
+
+
+/* CONTENT */
+
+.content {
+    padding: 10px 20%;
+    color: #fffff0;
+}
+
+.quote, .quoteauthor {
+    font-family: 'Tangerine', cursive;
+    /*font-style: italic;*/
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.quote {
+    font-size: 2em; /*tangerine is a tinny font*/
+}
+
+.quoteauthor {
+    font-size: 1.75em;
+    text-align: right;
+    margin-top: -24px;
+}
+
+.textbox {
+    color: #000000;
+    padding: 24px;
+    border-style: inset;
+    border-color: #705530;
+    border-width: 5px;
+    line-height: 1.5;
+}
+
+.textbox p {
+    position: relative; /* for images and the such */
+}
+
+.textbox p img {
+    position: absolute;
+    right: 0;
+    top: -6em;
+    opacity: 0.25;
+    width: 30%;
+	z-index: 1;
+	pointer-events: none;
+}
+
+
+/* SIDEBARS */
+
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    padding: 16px;
+    padding-top: inherit;
+    width: 10%;
+    max-width: 10em;
+    overflow: hidden;
+    z-index: 20;
+
+    /* for hiding off screen */
+    transform: translate(-95%, -50%);
+    transition: transform 1s;
+}
+
+.sidebar:hover {
+    transform: translate(0%, -50%);
+}
+
+.sidebar a, .sidebar form {
+    display: block;
+    padding: 16px;
+}
+
+.sidebar a {
+    border-bottom-style: solid;
+    border-bottom-color: #101010;
+    border-bottom-width: 3px;
+}
+
+.sidebar a:hover, .sidebar form:hover {
+    font-weight: bold;
+    color: #b03090;
+}
+
+.sidebar form {
+    padding-left: 0;
+}
+
+.sidebar form input {
+    max-width: 100%;
+}
+
+form .arrowbutton{
+    background: transparent;
+    border: none;
+}
+
+form .arrowbutton:hover {
+    background: -moz-radial-gradient(closest-side, #70b0e080, #00000000);
+}
+
+form .arrowbutton img{
+    display: inline;
+    height: 1em;
+}
+
+/* undecorating all links */
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.textbox p a, .textbox form a {
+    color: #702050;
+}
+
+.textbox:hover p a {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: #702050;
+}
+
+/* accomodating draconic syntax */
+span.l {
+    text-decoration: line-through;
+}
+
+
+/* shadowed elements */
+.title, .content .textbox, .sidebar, .passwords{
+    box-shadow: 8px 8px 4px 4px #00000080;
+}
+
+
+/* parchement colors */
+.sidebar, .textbox {
+    background-color: #d0c0a0;
+} 
+
+.content .textbox .matchbackground {
+    background: -moz-radial-gradient(closest-side, #d0c0a0, #00000000);
+}
+
+.content .textbox .matchcolortoback {
+    color: #d0c0a0;
+}
+
+.sidebar:hover, .textbox:hover {
+    background-color: #e0d0b0;
+}
+
+.content .textbox:hover .matchbackground {
+    background: -moz-radial-gradient(closest-side, #d0c0a0, #00000000);
+}
+
+.content .textbox:hover .matchcolortoback{
+    color: #e0d0b0;
+}
+
+
+/* UTIL */
+
+.hidden {
+    display: none;
+}

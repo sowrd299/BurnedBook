@@ -1,0 +1,43 @@
+/* the search for */
+
+.textbox form {
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    padding-bottom: 1em;
+}
+
+.textbox h3 {
+    margin-bottom: 1px;
+}
+
+/* entries */
+
+.entry .header, .entry h3 {
+    display: inline-block;
+    vertical-align:top;
+}
+
+.pos {
+    font-weight: bold;
+    font-size: 0.7em;
+}
+
+.pos, .note {
+    margin-top: 1px;
+}
+
+.entry p {
+    /*margin-top: 1px;*/
+    margin-bottom: 1px;
+    margin-left: 0.7em;
+}
+
+.text {
+    display: inline-block;
+    padding-top: 0.7em;
+}
+
+.note {
+    font-style: italic;
+    color: #333333;
+}

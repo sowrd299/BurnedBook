@@ -1,0 +1,52 @@
+/* SECRETS */
+.secret {
+    margin-top: 2em;
+    color: #505050;
+    font-style: italic;
+}
+
+.secretfrom {
+    color: #707070;
+    font-style: italic;
+    text-align: right;
+    font-size: 0.9em;
+}
+
+
+/* ALL LINKS */
+.edit, .pageturn {
+    font-family: 'Cinzel Decorative', cursive;
+    text-decoration: none;
+}
+
+.pageturn:hover, .edit:hover {
+    background: -moz-radial-gradient(closest-side, #70b0e080, #00000000);
+}
+
+#next.pageturn, .edit {
+    float: right;
+}
+
+/* EDIT */
+.edit {
+    color: #706060;
+}
+
+
+/* PAGE TURN */
+.pageturn{
+    color: inherit;
+    padding: 32px 32px;
+    font-size: 1.5em;
+}
+
+#prev.pageturn{
+    float: left;
+}
+
+h3.chapter {
+    font-size: 0.75em;
+    color: #00000080;
+    margin-bottom: -12px;
+    font-family: 'Cinzel Decorative', cursive;
+}
