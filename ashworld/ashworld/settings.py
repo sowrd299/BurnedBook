@@ -25,7 +25,10 @@ SECRET_KEY = 'wao(i7ge0u+)0)#4c)(#e+az-+k7=@+l)39tr5idr+4v%4r8ah'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'theashworld.pythonanywhere.com'
+]
 
 
 # Application definition
