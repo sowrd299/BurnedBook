@@ -146,6 +146,7 @@ def search(request):
 	infos = InfoPage.objects.all()
 	infos = search_objects(infos, context['terms'], "text", "short_title", context["bad_terms"])
 
+	infos = sorted(list(infos), key = lambda i : (i.chapter_info().title(), i.chapter_number()))
 
 	# build the context
 	context['infos'] = infos
