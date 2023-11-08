@@ -5,6 +5,13 @@
     margin-top: 6px;
 }
 
+.searchheader {
+    margin-top: 12px;
+	border-top: #60504060;
+	border-top-width: 2px;
+	border-top-style: solid;
+}
+
 .searchresult:hover {
     font-weight: bold;
     color: #b03090;

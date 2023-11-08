@@ -31,7 +31,16 @@
 
         <h2>Findings from the Index:</h2>
         {% for info in infos %}
-            <a class="searchresult" href="{% url 'info' info.pk %}?terms={{terms_str}}">{{ info.short_title }}, <span class="chapter">{{ info.chapter }}</span></a>
+			{% if info.is_header %}
+				<div class='searchheader'></div>
+			{% else %}
+            	<a class='searchresult' href="{% url 'info' info.pk %}?terms={{terms_str}}">
+					{% if not info.is_secret %}
+						{{ info.short_title }}, 
+					{% endif %}
+					<span class="chapter">{{ info.chapter }}</span>
+				</a>
+			{% endif %}
         {% endfor %}
 
     </div>

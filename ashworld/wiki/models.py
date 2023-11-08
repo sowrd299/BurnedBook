@@ -35,6 +35,9 @@ class InfoPage(models.Model):
     def chapter_number(self):
         return self._chapter()[1]
 
+    def is_intro(self):
+        return self.chapter_number() == 0
+
     def chapter(self):
         info, number = self._chapter()
         return "{}, Chapter {}".format(info.title(), number) if number > 0 else "Introduction"
@@ -51,6 +54,9 @@ class InfoPage(models.Model):
 
     def __str__(self):
         return self.short_title
+
+    def is_header(self):
+       return False
 
 
 

@@ -134,6 +134,14 @@ def remove_password(request, remove):
 	return redirect(request.GET.get('return'))
 
 
+class SearchHeader():
+	'''
+	A marker object that denotes where a section break is in a list of results
+	'''
+
+	def is_header(self):
+		return True
+
 def search(request):
 	'''
 	Displays a list of search-result info pages
@@ -147,6 +155,14 @@ def search(request):
 	infos = search_objects(infos, context['terms'], "text", "short_title", context["bad_terms"])
 
 	infos = sorted(list(infos), key = lambda i : (i.chapter_info().title(), i.chapter_number()))
+
+	# Add section breaks with an old-school for-loop
+	i = 0
+	while i+1 < len(infos):
+		if infos[i].chapter_info() != infos[i+1].chapter_info():
+			infos.insert(i+1, SearchHeader())
+			i += 1
+		i += 1
 
 	# build the context
 	context['infos'] = infos
