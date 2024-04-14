@@ -14,15 +14,19 @@ class InfoPage(models.Model):
         return self.short_title #self.full_title if self.full_title else self.short_title
 
     def prev_page(self):
-        return InfoPage.objects.get(next_page = self)
+        try:
+            return InfoPage.objects.get(next_page = self)
+        except (InfoPage.MultipleObjectsReturned, InfoPage.DoesNotExist):
+            return None
 
     def _chapter(self):
         prev = self
         i = 0
         while True:
-            try:
-                prev = prev.prev_page()
-            except InfoPage.DoesNotExist:
+            new_prev = prev.prev_page() 
+            if new_prev:
+                prev = new_prev
+            else:
                 break
             
             i += 1

@@ -45,6 +45,11 @@
     text-align: right;
     font-weight: normal;
     font-size: 0.75em;
+	margin-top: 0;
+}
+
+.maplocation { 
+	line-height: calc(1em - 2px);
 }
 
 .maplocation:hover {

@@ -17,6 +17,10 @@
     vertical-align:top;
 }
 
+.entry .header {
+	width: 10em;
+}
+
 .pos {
     font-weight: bold;
     font-size: 0.7em;

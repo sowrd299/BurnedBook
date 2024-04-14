@@ -280,9 +280,7 @@ body:before {
     top: 50%;
     padding: 16px;
     padding-top: inherit;
-    width: 10%;
-    max-width: 10em;
-    overflow: hidden;
+    width: 10em;
     z-index: 20;
 
     /* for hiding off screen */
@@ -330,6 +328,14 @@ form .arrowbutton:hover {
 form .arrowbutton img{
     display: inline;
     height: 1em;
+}
+
+.bookmark_img {
+	position: absolute;
+	top: 0;
+	right: -64px;
+	height: 64px;
+	width: auto;
 }
 
 /* undecorating all links */
