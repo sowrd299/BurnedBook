@@ -267,10 +267,16 @@ body:before {
     top: -6em;
     opacity: 0.25;
     width: 30%;
+    max-width: 20em;
 	z-index: 1;
 	pointer-events: none;
 }
 
+.textbox img.diagram {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 
 /* SIDEBARS */
 
